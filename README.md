@@ -7,5 +7,7 @@ Check it out here : https://nextserver.ml
 Getting started:
 
   -clone this repo
+  
   -install the requirements
+  
   -run djangos development server by typing *python manage.py runserver*
