@@ -1,0 +1,12 @@
+{%extends 'dashboard_base.html'%}
+
+{%block content%}
+<div class="centered">
+    <h1>Delete this post from your Blog</h1>
+    <p>Note that this will permanently delete this post from our database. We can not recover it.</p><br>
+    <form method="POST">
+        {%csrf_token%}
+        <button class="button-alert">Delete</button>
+    </form>
+</div>
+{%endblock%}

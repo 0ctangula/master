@@ -1,0 +1,53 @@
+﻿{% extends 'dashboard_blog_base.html'%}
+
+{%block header%}
+<link rel="stylesheet" href="https://wikicdn.web.app/css/dashboard.css">
+{%endblock%}
+
+{% block content %}
+<!--editor js-->
+<script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
+<!--Form-->
+{%for profile in profile%}
+{%for blogconf in blogconf%}
+<div class="form-wrapper">
+  <form method="post">
+    <br />
+    {%csrf_token%}
+    <label class="font1">Username*</label>
+    <br />
+    <input type="text" name="username" size="100" value="{{user.get_username}}" readonly /><br /><br />
+    <label class="font1">Title*</label><br />
+    <input type="text" name="title" size="100" placeholder="e.g.: How to use Discords API " required /><br /><br />
+    <label class="font1">Background Picture*</label>
+    <input type="text" name="picture" size="100" placeholder="e. g.: https://example.com/image.png" required />
+
+    <br /><br /><br />
+    <label class="font1">Article*</label><br />
+    <textarea name="mainContent" required></textarea><br /><br />
+    <br />
+    <label style="display : inline-block">Url*: /blog/{{user.get_username}}/</label>
+    <input style="width : 200px; display : inline-block" type="text" id="txtEmpName" name="url"
+      onkeypress="return AvoidSpace(event)" placeholder="how-to-use-discords-api" required /><br />
+    <br /><br />
+    <button type="submit" class="button-success center">Submit</button>
+    <br /><br />
+  </form>
+</div>
+</div>
+{%empty%}
+<div class="centered">
+  <h1 class="font1">Hey your <a href="/dashboard/blog/config/" class="yellow" style="color : black">Blog</a> is not
+    setup yet.<br /> Let's do that?</h1><br />
+  <h1><a class="font1" href="/dashboard/blog/config/" style=" color : black">Yes bring me there 😃</a></h1><br /><br />
+</div>
+{%endfor%}
+{%empty%}
+<div class="centered">
+  <h1 class="font1">You don't have your <a href="/dashboard/profile" class="yellow" style="color : black">Profile
+      Page</a> setup yet.<br /> Let's do that?</h1><br />
+  <h1><a class="font1" href="/dashboard/profile" style=" color : black">Yes bring me there 😃</a></h1><br /><br />
+</div>
+{%endfor%}
+
+{%endblock%}

@@ -1,0 +1,133 @@
+﻿﻿{%extends 'base.html'%} {%block header%}
+<link rel="stylesheet" href="https://wikicdn.web.app/css/article.css" />
+<link rel="stylesheet" href="https://wikicdn.web.app/css/card.css" />
+{%endblock%} {%block content%}
+<!--author options-->
+{% if article.user == user.get_username %}
+<div class="wrapper" style="position: relative;">
+  <form method="POST" style="margin-right: -10px">
+    {%csrf_token%}
+    <a class="button-attention" style="float : right; " href="./edit">Edit</a>
+    <a class="button-alert" style="float : right;" href="./delete">Delete</a>
+  </form>
+</div>
+{%endif%}
+
+<!--Title-->
+<div class="wrapper">
+  <div class="head">
+    <h1>{{article.title}}</h1>
+    <!--Author infos -->
+    {%for customuser in customuser%} {%if customuser.user == article.user%}
+    <img src="{{customuser.picture}}" alt="" />
+    {%else%} {%endif%} {%endfor%}
+    <a href="/user/{{article.user}}">{{article.user}}<span></span></a><br />
+    <p>{{article.date}}</p>
+  </div>
+  <div class="sharing">
+    <!--twitter-->
+    <a href="https://twitter.com/intent/tweet?text=Check%20out%20this%20post%20on%20TechWiki%20https://techwiki.com/article/{{ article.url }}"
+      data-size="large" target="_blank"><img src="https://wikicdn.web.app/media/Twitter.png" /></a>
+
+    <!--Facebook-->
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https://techwiki.com/article/{{ article.url }}"
+      target="_blank">
+      <img src="https://wikicdn.web.app/media/Facebook.png" />
+    </a>
+  </div>
+</div>
+<!--picture-->
+<div class="picture">
+  <img src="{{article.picture}}" alt="" />
+</div>
+<!--Main Content-->
+<div class="wrapper">
+  <div class="article">
+    <p>
+      {{article.mainContent|safe}}
+    </p>
+    <hr />
+    <!--User & Blog-->
+    <div class="card-article">
+
+      {%for customuser in customuser%}
+      {%if customuser.user == article.user %}
+      <img src="{{customuser.picture}}" alt="">
+      <div>
+        <p class="font1">WRITTEN BY</p>
+        <h1><a href="/user/{{customuser.user}}/">{{customuser.user}}</a></h1>
+        <p>{{customuser.description|slice:":50"}}</p>
+        {%endif%}
+        {%endfor%}
+      </div>
+    </div>
+    <div class="card-article" style="margin-top: 100px">
+
+      {%for blogconf in blogconf%}
+      <img src="{{blogconf.picture}}" alt="">
+      <div>
+        <p class="font1">PUBISHED ON</p>
+        <h1><a href="/blog/{{blogconf.url}}/">{{blogconf.title}}</a></h1>
+        <p>{{blogconf.description|slice:":50"}}</p>
+        {%endfor%}
+      </div>
+    </div>
+    <hr>
+  </div>
+  <!--comments-->
+
+  <button class="button-primary comment-trigger">
+    View Comments
+  </button>
+  <div class="box box-comment" style=" margin-top : 30px !important">
+    <form method="post">
+      <br />
+      {%csrf_token%}
+      <label class="font1">Username*</label>
+      <br />
+      <input type="text" name="user" size="100" value="{{user.get_username}}" readonly /><br /><br />
+      <label class="font1">Comment*</label><br />
+      <textarea type="text" name="mainContent" size="100" placeholder="e.g.: Great Explanation" required></textarea>
+
+      <br /><br />
+      <button type="submit" class="button-success center">Submit</button>
+      <br /><br />
+    </form>
+    <div class="comments-show">
+      {%for comment in comment%}
+      <div>
+        <h2 class="font2">{{comment.mainContent}}</h2>
+        <p class="font2">by {{comment.user}}</p>
+      </div>
+      {%endfor%}
+    </div>
+  </div>
+</div>
+<div class="suggestions wrapper">
+  <h1 class="font1">
+    More by
+    <a class="yellow" href="/user/{{article.user}}">{{article.user}}</a>:
+  </h1>
+  {%for suggestion in suggestion|dictsortreversed:"date" %}
+  {%if suggestion.user == article.user%}
+  <div style="display : inline-block; margin-top : 20px">
+    <div class="card" onclick="location.href='/article/{{suggestion.url}}'"
+      style="background-image: url({{suggestion.picture}});">
+      <br />
+      <div class="inner-card">
+        <br />
+        <h3 class="font1 font-30">
+          {{suggestion.title}}
+        </h3>
+        <p href="/article/?search={{suggestion.user}}">
+          by {{suggestion.user}}
+        </p>
+      </div>
+    </div>
+  </div>
+  {%endif%}
+  {%endfor%}
+</div>
+
+<script src="https://wikicdn.web.app/js/article.js"></script>
+{%endblock%}

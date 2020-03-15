@@ -1,0 +1,36 @@
+{% extends 'dashboard_base.html'%}
+<!--Form-->
+{%block content%}
+<!--editor js-->
+<script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
+
+<div class="form-wrapper">
+    <form method="post">
+        <br />
+        {%csrf_token%}
+        <label class="font1">Username*</label>
+        <br />
+        <input type="text" name="username" size="100" value="{{user.get_username}}" readonly /><br /><br />
+        <label class="font1">Title*</label><br />
+        <input type="text" name="title" size="100" placeholder="e.g.: How to use Discords API " value="{{object.title}}"
+            required /><br />
+        <label class="font1">Background Picture*</label>
+        <input type="text" name="picture" size="100" placeholder="e. g.: https://example.com/image.png"
+            value="{{object.picture}}" required />
+
+        <br /><br /><br />
+        <label class="font1">Article*</label><br />
+        <textarea name="mainContent" required>{{object.mainContent}}</textarea><br /><br />
+        <br />
+        <label style="display : inline-block">Url*: /article/</label>
+        <input style="width : 200px; display : inline-block" type="text" id="txtEmpName" name="url"
+            onkeypress="return AvoidSpace(event)" placeholder="how-to-use-discords-api" value="{{object.url}}"
+            required /><br />
+        <br /><br />
+        <button type="submit" class="button-success center">Submit</button>
+        <br /><br />
+    </form>
+</div>
+
+
+{%endblock%}

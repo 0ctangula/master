@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Octangula</title>
+    <link rel="stylesheet" href="https://wikicdn.web.app/css/main.css">
+    <link rel="stylesheet" href="https://wikicdn.web.app/css/components.css">
+    <link rel="stylesheet" href="https://wikicdn.web.app/css/dashboard.css">
+    <link rel="stylesheet" href="https://wikicdn.web.app/css/formcontrol.css">
+    <link rel="stylesheet" href="https://wikicdn.web.app/css/card.css" />
+    <link rel="stylesheet" href="https://wikicdn.web.app/css/card2.css">
+    <link rel="stylesheet" href="https://wikicdn.web.app/css/card-user.css">
+    <link rel="stylesheet" href="https://wikicdn.web.app/css/search.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="https://wikicdn.web.app/media/favicon-32x32.png">
+</head>
+{%if user.is_authenticated%}
+
+<body>
+    <div class="side-menu">
+        <div class="links">
+            <ul>
+                <li><a href="/dashboard/blog/">Blogs</a></li>
+                <li><a href="/">Explore Posts</a></li>
+                <li><a href="/dashboard/developers/">Developers</a></li>
+            </ul>
+            <ul style="position : absolute; bottom : 20px">
+                <li style="background-color: lightcoral;"><a href="/logout/">Log out</a></li>
+            </ul>
+        </div>
+
+        <div class="user">
+            <h3 class="font1">{{user.get_username}}</h3>
+            <img src="{{userprofile.picture}}" alt="">
+
+            <a href="/dashboard/profile"><img src="https://wikicdn.web.app/media/Settings.png" alt=""></a>
+        </div>
+    </div>
+    <div class="main">
+        <div class="wrapper">
+            <!------------------Navbar------------------->
+            <nav id="nav" class="" style="top: 0px; left: 15%; z-index: +10; width: 85%;">
+                <a href="/" style="float : left !important"><img src="https://wikicdn.web.app/css/icon_white.svg"
+                        alt="" /></a>
+                <button id="nav-button">
+                    <span> ☰</span>
+                </button>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/search/">Search</a></li>
+                    <li><a href="/q-and-a">Q&amp;A</a></li>
+                    <li><a href="/dashboard/">Dashboard</a></li>
+                    <li><a href="/logout/">Logout</a></li>
+                </ul>
+            </nav>
+            <!----------------Navbar End----------------->
+
+            {%block content%}
+            {%endblock%}
+        </div>
+    </div>
+    <script src="https://wikicdn.web.app/js/jquery.js"></script>
+    <script src="https://wikicdn.web.app/js/typed.js"></script>
+    <script src="https://wikicdn.web.app/js/components.js"></script>
+
+    {%else%}
+    <meta http-equiv="Refresh" content="0; url=/error401/" />
+    {%endif%}
+</body>
+
+</html>

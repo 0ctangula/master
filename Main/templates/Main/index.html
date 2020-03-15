@@ -1,0 +1,119 @@
+﻿{%extends 'base.html'%}
+
+{%block header%}
+{%if user.is_authenticated%}
+<link rel="stylesheet" href="https://wikicdn.web.app/css/homeauth.css" />
+{%else%}
+<link rel="stylesheet" href="https://wikicdn.web.app/css/suggestion.css">
+<link rel="stylesheet" href="https://wikicdn.web.app/css/home.css">
+{%endif%}
+{%endblock%}
+
+{%block content%}
+{%if user.is_authenticated%}
+<!--User is authenticated-->
+<div class="head">
+  <h1 class="font1">
+    Newest Articles on Octangle:
+  </h1>
+  <p>Welcome back {{user.get_username}}</p>
+</div>
+<div class="wrapper">
+  <hr style="display: block; height: 1px;
+    border: 0; border-top: 1px solid #ccc;
+    margin: 1em 0; padding: 0; " />
+  <!-----------------Sidebar------------------->
+  <div class="sidebar">
+    <h1 class="font1">Popular Categories:</h1>
+    <hr />
+    <br />
+
+    <a class="sidebar-box" href="/search/?search=coding">Coding</a>
+    <a class="sidebar-box" href="/search/?search=tech">Tech</a>
+    <a class="sidebar-box" href="/search/?search=networking">Networking</a><br /><br />
+    <hr />
+    <a target="_blank" href="https://wikicdn.web.app/privacypolicies.html">Privacy Policies</a>
+  </div>
+  <!---------------Sidebar End----------------->
+  <div class="card">
+    <div>
+      {%for article in article%}
+      <div class="article">
+        <img src="{{article.picture}}" alt="" />
+        <div class="article-wrapper">
+          <h1 class="font1"> <a {%for blogconf in blogconf %}href="/blog/{{blogconf.url}}/{{article.url}}"
+              {%endfor%}>{{article.title}}</a></h1>
+          <p class="font1"><a {%for blogconf in blogconf %} href="/blog/{{blogconf.url}}/{{article.url}}" {%endfor%}
+              style="text-decoration : none">{{article.mainContent|slice:":100"|safe}}</a></p>
+
+          <div class="user">
+            <a href="/user/{{article.user}}">{{article.user}}</a>
+            <p style="margin-left : 10px">{{article.date}}</p>
+          </div>
+        </div>
+      </div>
+      {%endfor%}
+    </div>
+  </div>
+</div>
+
+<script src="https://wikicdn.web.app/js/jquery.js"></script>
+<script src="https://wikicdn.web.app/js/typed.js"></script>
+<script src="https://wikicdn.web.app/js/gsap.js"></script>
+<script src="https://wikicdn.web.app/js/homeauth.js"></script>
+
+{%else%}
+<!--User is not authenticated-->
+<div class="head">
+  <br />
+  <iframe src="https://wikicdn.web.app/js/octangula_white/" frameborder="0"></iframe>
+  <h1 class="font1">Octangula - <span class="typed"></span></h1>
+  <a href=""></a>
+</div>
+
+<div class="wrapper">
+  <div class="content" style="margin-top : -50px">
+    <h1 class="font1">Octangula:</h1><br />
+    <p class="font1">
+      Our idea is to build a plattform to make sharing information and
+      creating blogs as simple as possible and building a great community of
+      people who enjoy development, deployment, servers, networking and so
+      on and so forth. In order to achieve this we are reliant on
+      <strong>your</strong> help.
+      <br />
+      In case you want you can join our discord
+      <a href="https://discord.com" class="yellow" target="_blank">here</a>.
+    </p>
+  </div>
+  <!----------Suggestions------------->
+  <div class="suggestions">
+    <h3 class="font1">Suggestions :</h3><br>
+    {%for article in article%}
+    <div class="card">
+      <img src="https://wikicdn.web.app/uploads/category/landscape/landscape.jpg" />
+      <div class="card-wrapper">
+        <a href="/blog/{{article.user}}/{{article.url}}" id="content">
+          {{article.mainContent|slice:':70'|safe }}...
+        </a>
+        <br />
+        <a href="/user/{{article.user}}" id="user">by {{article.user}}</a>
+        {%for profile in profile%}
+        {%if profile.user == article.user%}
+        <div class="user-info">
+          <img src="https://wikicdn.web.app/uploads/category/landscape/landscape.jpg" alt="" />
+          <h3>{{profile.user}}</h3>
+          <p>{{profile.description|slice:':70'|safe}}</p>
+        </div>
+        {%endif%}
+        {%endfor%}
+      </div>
+    </div>
+    {%endfor%}
+  </div>
+</div>
+<script src="https://wikicdn.web.app/js/jquery.js"></script>
+<script src="https://wikicdn.web.app/js/typed.js"></script>
+<script src="https://wikicdn.web.app/js/gsap.js"></script>
+<script src="https://wikicdn.web.app/js/home.js"></script>
+{%endif%}
+{%endblock%}

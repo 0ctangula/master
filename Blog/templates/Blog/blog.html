@@ -1,0 +1,40 @@
+﻿{%extends 'base.html'%}
+
+{%block header%}
+<link rel="stylesheet" href="https://wikicdn.web.app/css/card.css" />
+<link rel="stylesheet" href="https://wikicdn.web.app/css/blog.css" />
+{%endblock%}
+
+{%block content%}
+
+<div class="header" style="width : 100% !important">
+  <br />
+  <img src="{{blogconf.picture}}" alt="" />
+  <h1 class="font1">{{blogconf.title}}</h1>
+  <p style="color : black">{{blogconf.sidenote}}</p>
+</div>
+<div class="mainContent">
+  {%for posts in posts|dictsortreversed:"date" %}
+  <div style="display : inline-block; margin-top : 20px">
+    <div class="card" onclick="location.href='/blog/{{posts.user}}/{{posts.url}}'"
+      style="background-image: url({{posts.picture}});">
+      <br />
+      <div class="inner-card">
+        <br />
+        <h3 class="font1 font-30">
+          {{posts.title}}
+        </h3>
+        <p href="/article/?search={{posts.user}}">by {{posts.user}}</p>
+      </div>
+    </div>
+  </div>
+
+  {%empty%}
+  <br />
+  <h3>{{blogconf.user}} didn't write any Articles yet 😥
+  </h3>
+  <br /><br /><br />
+  {%endfor%}
+</div>
+
+{%endblock%}

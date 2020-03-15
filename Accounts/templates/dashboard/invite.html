@@ -1,0 +1,32 @@
+{%extends 'dashboard_base.html' %}
+
+{%block content%}
+<div class="centered" style="color: black;">
+    <div class="box" style="width: 90%;">
+        <h1 class="font1">Add collaborators</h1>
+        <p class="font1">note that they will have equal permissions to you</p><br><br><br>
+        <form method="GET">
+            <div class="search" style="position: relative;">
+                <input type="text" class="searchTerm" placeholder="Search a User" name="search" />
+                <button type="submit" class="searchButton">
+                    <img src="https://wikicdn.web.app/media/search.png" alt="" />
+                </button>
+            </div>
+        </form>
+
+        <br><br>
+        <div style="margin-top: 100px; width: 80%; margin: 0 auto;">
+            <h1 class="font1">Users :</h1><br>
+            {%for profile in profile%}
+            <div class="card-user">
+                <img src="{{profile.picture}}" alt="">
+                <a class="name" href="/user/{{profile.user}}/">{{profile.user}}</a>
+                <p class="description">{{profile.description}}</p>
+            </div>
+            {%empty%}
+            <p>No results! Are you sure you are looking for the right person?</p>
+            {%endfor%}
+        </div>
+    </div>
+</div>
+{%endblock%}

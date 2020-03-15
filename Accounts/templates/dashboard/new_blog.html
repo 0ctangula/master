@@ -1,0 +1,37 @@
+{%extends 'dashboard_base.html'%}
+<!--Form-->
+{%block content%}
+{%for profile in profile%}
+<div class="form-wrapper">
+    <form method="post">
+        <br />
+        {%csrf_token%}
+        <label class="font1">Username*</label><br />
+        <input type="text" size="100" value="{{user.get_username}}" readonly /><br /><br />
+        <label class="font1">Name*</label><br />
+        <input type="text" name="title" size="100" placeholder="e. g.: The Official Blog" required /><br /><br />
+        <label class="font1">Blog Picture*</label>
+        <input type="text" name="picture" size="100" placeholder="e. g.: https://example.com/image.png" />
+        <br /><br />
+        <label class="font1">Side Note*</label>
+        <input type="text" name="description" size="100" placeholder="e. g.: Trying to develop tomorrow" required />
+        <br /><br />
+        <label class="font1">URL*</label><br>
+        <p style="display: inline-block;">octangula/blog/</p>
+        <input style="display: inline-block; width: 200px;" type="text" name="url" size="100" placeholder="e. g.: <url>"
+            required />
+        <br><br><br>
+        <button type="submit" class="button-success center">Submit</button>
+        <br /><br />
+    </form>
+</div>
+</div>
+{%empty%}
+<div class="centered">
+    <h1 class="font1">You don't have your <a href="/dashboard/profile" class="yellow" style="color : black">Profile
+            Page</a> setup yet.<br /> Let's do that?</h1><br />
+    <h1><a class="font1" href="/dashboard/profile" style=" color : black">Yes bring me there 😃</a></h1><br /><br />
+</div>
+{%endfor%}
+
+{%endblock%}

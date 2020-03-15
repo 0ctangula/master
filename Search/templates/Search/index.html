@@ -1,0 +1,65 @@
+{% extends 'base.html'%} {%block header%}
+<link rel="stylesheet" href="https://wikicdn.web.app/css/homeauth.css" />
+<link rel="stylesheet" href="https://wikicdn.web.app/css/search.css" />
+{%endblock%} {%block content%}
+<div class="wrapper" style="margin-top : 120px; margin-bottom : 80px">
+  <!------------------Search------------------->
+  <form method="GET">
+    <div class="search">
+      <input type="text" class="searchTerm" placeholder="Search on Octangula" name="search" />
+      <button type="submit" class="searchButton">
+        <img src="https://wikicdn.web.app/media/search.png" alt="" />
+      </button>
+    </div>
+  </form>
+  <!----------------Search End----------------->
+  <!------------------Results------------------->
+  <div class="sidebar" style="top: 180px;">
+    <h1 class="font1">Search Tags:</h1>
+    <hr />
+    <br />
+
+    {%if search_term|length > 0 %}
+    <p class="sidebar-box" href="/search/?search={{search_term}}">{{search_term}}</p>
+    {%else%}
+    <p class="sidebar-box">Newest</p>
+    {%endif%}
+    <br /><br />
+    <hr />
+    <a target="_blank" href="https://wikicdn.web.app/privacypolicies.html">Privacy Policies</a>
+  </div>
+  <!---------------Sidebar End----------------->
+  <div class="card">
+    <div>
+      {%for blog in blog%}
+      <div class="article">
+        <img src="{{blog.picture}}" alt="" />
+        <div class="article-wrapper">
+          <h1 class="font1"> <a {%for blogconf in blogconf %}href="/blog/{{blogconf.url}}/{{blog.url}}"
+              {%endfor%}>{{blog.title}}</a></h1>
+          <p class="font1"><a {%for blogconf in blogconf %} href="/blog/{{blogconf.url}}/{{blog.url}}" {%endfor%}
+              style="text-decoration : none">{{blog.mainContent|slice:":100"|safe}}</a></p>
+
+          <div class="user">
+            <a href="/user/{{blog.user}}">{{blog.user}}</a>
+            <p style="margin-left : 10px">{{blog.date}}</p>
+          </div>
+        </div>
+      </div>
+      {%endfor%}
+    </div>
+  </div>
+</div>
+
+<script src="https://wikicdn.web.app/js/jquery.js"></script>
+<script src="https://wikicdn.web.app/js/gsap.js"></script>
+<script>
+  //sidebar
+  $(window).scroll(function () {
+    $('.sidebar').css('top', Math.max(0, 180 - $(this).scrollTop()));
+  });
+</script>
+<!----------------Results End----------------->
+<!--go on here-->
+</div>
+{%endblock%}

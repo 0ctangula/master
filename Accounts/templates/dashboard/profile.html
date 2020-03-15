@@ -1,0 +1,43 @@
+﻿{%extends 'dashboard_base.html'%}
+
+
+{%block content%}
+<div class="form-wrapper">
+  <form method="post">
+    {%csrf_token%}
+    {%for profile in profile%}
+    {%if profile.picture == ''%}
+    {%else%}
+    <!--Profile Picture-->
+    <div><img style="width : 60px; height : 60px; border-radius : 60px" src="{{profile.picture}}" />
+    </div><br />
+    {%endif%}
+    {%endfor%}
+    <label class="font1">Username*</label>
+    <br />
+    <input type="text" name="username" size="100" value="{{username}}" readonly /><br /><br />
+    <label class="font1">Picture*</label>
+    <br />
+    <input type="text" name="picture" size="100" placeholder="URL to your Profilepicture" {%for profile in profile%}
+      value="{{profile.picture}}" {%endfor%} />
+    <br /><br />
+    <label class="font1">Description*</label>
+    <br />
+    <textarea rows="7" type="text" name="description" size="1000"
+      placeholder="Short Description about yourself">{%for profile in profile%} {{profile.description}} {%endfor%}</textarea>
+
+    <br /><br />
+    <label class="font1">Profile Picture*</label>
+    <input type="text" name="profilepicture" size="100"
+      placeholder="URL to your Profilepicture(this picture gonna be on the right side of your Profile Page)"
+      {%for profile in profile%} value="{{profile.profilepicture}}" {%endfor%} />
+    <br /><br />
+    <br /><br /><br />
+    <button type="submit" class="button-success center">Submit</button><br />
+    <a href="/user/{{username}}" style="color : black">Click here to view your
+      Profile</a><br /><br />
+  </form>
+</div>
+</div>
+
+{%endblock%}

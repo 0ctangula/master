@@ -1,0 +1,62 @@
+{% extends 'dashboard_base.html'%}
+
+{%block content%}
+<div class="box" style="margin-top: 120px;margin-bottom: 120px; width: 90%;">
+    <h1 class="font1">What do you want to do?</h1><br>
+    <p>If you want to embed/have your blog on a separate domain click <a href="#jsapirequests" class="link">here</a></p>
+    <br>
+    <p>If you want to create something else like a Discord Bot click <a href="#generalapirequests" class="link">here</a>
+    </p>
+    <!--How to make Api requests with javascript-->
+    <div id="jsapirequests" style="margin-top : 40px">
+        <h1 class="font1">Create Api Requests with Javascript</h1><br>
+        <p>So this will be our final result:</p>
+        <div class="box-code">
+            <p>
+                const proxyurl = 'https://cors-anywhere.herokuapp.com/';<br>
+                const url = 'http://nextserver.ml/api/Blog/'; <br>
+                function loadREST() {<br>
+                fetch(proxyurl + url)<br>
+                .then(function(response) {<br>
+                return response.json();<br>
+                })<br>
+                .then(function(posts) {<br>
+                let html = '';<br>
+
+                posts.forEach(function(posts) {<br>
+                html += `<br>
+                <!--<li><br>
+            <a href="${posts.url}>${posts.title}</a>
+          --><br>
+                `;<br>
+                });<br>
+                document.getElementById('result').innerHTML = html;<br>
+                });<br>
+                }<br>
+
+                loadREST();<br>
+
+            </p>
+        </div>
+    </div>
+    <!--How to make API requests with other languages-->
+    <div id="generalapirequests" style="margin-top: 40px;">
+        <h1>How to make Api requests with other languages</h1>
+        <div class="box-code">
+            <p>posts = 'https://octangula/api' <br>
+                posts = api.json()<br>
+                users = posts['user']<br>
+                authors = {Kyle, Silvine}<br><br>
+
+                for posts in posts:
+                <p class="indent">
+                    if users == authors:
+                    <p class="indent2">title = posts['title']</p>
+                    <p class="indent2">print(title)</p><br>
+                </p>
+                <span>#should return the Title(s) of your post(s)</span>
+            </p>
+        </div>
+    </div>
+</div>
+{%endblock%}

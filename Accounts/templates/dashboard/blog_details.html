@@ -1,0 +1,26 @@
+{%extends 'dashboard_blog_base.html' %}
+
+{%block content%}
+<div style="margin-top: 100px;"></div>
+{% for blog in blog%}
+{%if blogconf.url == blog.blogtitle%}
+
+<div class="card2" onclick="window.location='/blog/{{blogconf.url}}/{{blog.url}}/'" style="margin-top: 20px;">
+    <img src="{{blog.picture}}" alt="">
+    <div class="left">
+        <h1>{{blog.title}}</h1>
+        <p class="content">{{blog.mainContent|slice:":100"|safe}}</p>
+    </div>
+    <div class="bottom">
+        <a class="author" href="/user/{{blog.user}}/">{{blog.user}}</a>
+        <p class="date">{{blog.date}}</p>
+    </div>
+</div>
+
+{%endif%}
+{%empty%}
+<h1 class="centered">hey you don't have any posts yet.</h1>
+<h1>Create one here <a href="./post" style="color: black;" class="yellow">Here</a></h1>
+{%endfor%}
+
+{%endblock%}
